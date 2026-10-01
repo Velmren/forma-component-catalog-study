@@ -1,0 +1,42 @@
+{
+  "hdris": [
+    {
+      "id": "studio_small_09",
+      "source": "polyhaven"
+    }
+  ],
+  "textures": [
+    {
+      "id": "ash_veneer",
+      "source": "polyhaven"
+    },
+    {
+      "id": "oak_veneer_01",
+      "source": "polyhaven"
+    },
+    {
+      "id": "walnut_veneer",
+      "source": "polyhaven"
+    },
+    {
+      "id": "rough_linen",
+      "source": "polyhaven"
+    },
+    {
+      "id": "poly_wool_herringbone",
+      "source": "polyhaven"
+    },
+    {
+      "id": "brown_leather",
+      "source": "polyhaven"
+    },
+    {
+      "id": "Travertine004",
+      "source": "ambientcg"
+    },
+    {
+      "id": "Fabric068",
+      "source": "ambientcg"
+    }
+  ]
+}

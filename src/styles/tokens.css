@@ -1,0 +1,34 @@
+:root {
+  /* Surfaces: white page, neutral grey for rendered media, one cool accent for state. */
+  --paper: #ffffff;
+  --panel: #f3f3f1;
+  --media: #dddcd8;
+  --line: #e6e5e1;
+  --line-strong: #c9c8c2;
+  --ink: #121211;
+  --ink-2: #57564f;
+  --ink-3: #85847d;
+  --accent: #2745c8;
+  --accent-soft: #e9edfb;
+  --in-stock: #2e6b3c;
+  --made-to-order: #a15c0f;
+  --sold-out: #8d8c86;
+  --silhouette: #2b2b29;
+  --drawing-fill: #d6d5d0;
+
+  --font: "Onest Variable", "Segoe UI", system-ui, sans-serif;
+  --display: clamp(2.5rem, 1.1rem + 3.2vw, 4rem);
+  --title: clamp(2rem, 1.4rem + 1.8vw, 3rem);
+  --heading: 1.375rem;
+  --body: 1rem;
+  --small: 0.875rem;
+  --caption: 0.8125rem;
+
+  --gutter: clamp(16px, 3vw, 40px);
+  --content: 1680px;
+  --header: 64px;
+  --radius: 8px;
+  --radius-small: 4px;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --shadow-float: 0 12px 32px rgb(18 18 17 / 0.16), 0 2px 6px rgb(18 18 17 / 0.08);
+}

@@ -1,0 +1,219 @@
+/* Dropdowns: trigger shares the filter-button geometry; panel floats under it on larger
+   screens and becomes a bottom sheet on phones. */
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-trigger {
+  justify-content: space-between;
+}
+
+.dropdown-value {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* All option labels stack in one cell; only the current one is visible. */
+.dropdown-sizer {
+  display: inline-grid;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.dropdown-sizer > span {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.dropdown-sizer > .is-current {
+  visibility: visible;
+}
+
+.dropdown-float {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 30;
+  min-width: 100%;
+  transform-origin: top left;
+}
+
+.dropdown-float.is-up {
+  top: auto;
+  bottom: calc(100% + 6px);
+  transform-origin: bottom left;
+}
+
+.dropdown-float.is-right {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+.dropdown-float.is-up.is-right {
+  transform-origin: bottom right;
+}
+
+.dropdown-panel {
+  min-width: 100%;
+  max-height: min(420px, 60vh);
+  padding: 6px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  box-shadow: var(--shadow-float);
+}
+
+.dropdown-price {
+  width: 360px;
+  padding: 10px 10px 6px;
+}
+
+.listbox {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  outline: none;
+}
+
+.listbox-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 12px 0 10px;
+  border-radius: 6px;
+  font-size: var(--small);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.listbox-option.is-active {
+  background: var(--panel);
+}
+
+.listbox:focus-visible .listbox-option.is-active {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.listbox-option[aria-selected="true"] {
+  font-weight: 560;
+}
+
+.listbox-option[aria-disabled="true"] {
+  color: var(--ink-3);
+  cursor: not-allowed;
+}
+
+.listbox-label {
+  flex: 1;
+}
+
+.listbox-check {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+}
+
+.listbox-check svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+
+.listbox-check.is-box {
+  border: 1.5px solid var(--line-strong);
+  border-radius: 4px;
+  transition: background-color 0.12s var(--ease), border-color 0.12s var(--ease);
+}
+
+.listbox-option[aria-selected="true"] .listbox-check.is-box {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.listbox-option[aria-selected="true"] .listbox-check.is-box svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* Phone bottom sheet */
+
+.dropdown-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}
+
+.dropdown-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(18 18 17 / 0.32);
+}
+
+.dropdown-sheet-body {
+  position: absolute;
+  inset: auto 0 0;
+  max-height: 82dvh;
+  padding: 8px 12px calc(16px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  border-radius: 16px 16px 0 0;
+  background: var(--paper);
+}
+
+.dropdown-panel.is-sheet {
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  box-shadow: none;
+}
+
+.dropdown-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0 8px 10px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.is-sheet .listbox-option {
+  min-height: 48px;
+  font-size: var(--body);
+}
+
+.is-sheet .dropdown-price {
+  width: auto;
+}
+
+@media (max-width: 960px) {
+  /* Filters and order split the row evenly; a basis of 0 would still add the button's padding. */
+  .toolbar-row .sheet-trigger,
+  .toolbar-end {
+    flex: 0 0 calc(50% - 6px);
+    min-width: 0;
+  }
+
+  .toolbar-end .sort,
+  .toolbar-end .sort-dropdown {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toolbar-end .sort-dropdown .dropdown-trigger {
+    width: 100%;
+  }
+}

@@ -1,0 +1,814 @@
+/* Introduction: one statement, a short explanation and the material index as the first filter. */
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: end;
+  gap: 32px 64px;
+  padding-block: clamp(32px, 4vw, 56px) clamp(28px, 3vw, 40px);
+}
+
+.intro h1 {
+  font-size: var(--display);
+  font-weight: 580;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.intro-aside {
+  display: grid;
+  gap: 24px;
+}
+
+.intro-aside > p {
+  max-width: 46ch;
+  color: var(--ink-2);
+}
+
+.material-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.material-index button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px 0 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: var(--paper);
+  font-size: var(--small);
+  transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease);
+}
+
+.material-index button:hover {
+  border-color: var(--ink);
+}
+
+.material-index button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.index-count,
+.tab-count,
+.option-count,
+.segment-count {
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.material-index button[aria-pressed="true"] .index-count {
+  color: var(--accent);
+}
+
+/* Toolbar stays under the header while the grid scrolls. */
+
+.toolbar {
+  position: sticky;
+  top: var(--header);
+  z-index: 10;
+  display: grid;
+  gap: 12px;
+  margin-inline: calc(-1 * var(--gutter));
+  padding: 12px var(--gutter) 14px;
+  /* Paper and hairline extend to both window edges; border-image outset paints
+     beyond the box without widening the page. */
+  border-image: linear-gradient(to top, var(--line) 1px, var(--paper) 1px) fill 0 / / 0 100vw;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-tabs button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  flex: none;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  box-shadow: inset 0 -2px transparent;
+  transition: color 0.15s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.category-tabs button:hover:not(:disabled) {
+  color: var(--ink);
+}
+
+.category-tabs button[aria-pressed="true"] {
+  color: var(--ink);
+  box-shadow: inset 0 -2px var(--ink);
+}
+
+.category-tabs button:disabled {
+  color: var(--line-strong);
+}
+
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.toolbar-filters,
+.toolbar-end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-size: var(--small);
+  font-weight: 500;
+}
+
+.filter-button:hover,
+.filter-button[aria-expanded="true"] {
+  border-color: var(--ink);
+}
+
+.filter-button.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-button svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s var(--ease);
+}
+
+.filter-button[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.filter-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.sheet-trigger {
+  display: none;
+}
+
+.option-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.option-list legend {
+  margin-bottom: 8px;
+  color: var(--ink-2);
+  font-size: var(--caption);
+}
+
+.option {
+  display: grid;
+  grid-template-columns: 18px 18px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding-inline: 8px;
+  border-radius: 6px;
+  font-size: var(--small);
+  cursor: pointer;
+}
+
+.option:hover {
+  background: var(--panel);
+}
+
+.option:has(input:disabled) {
+  color: var(--ink-3);
+  cursor: not-allowed;
+}
+
+.option input,
+.compare-toggle input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.segmented {
+  display: inline-flex;
+  margin: 0;
+  padding: 2px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.segment {
+  position: relative;
+}
+
+.segment input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segment > span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 6px;
+  font-size: var(--small);
+  font-weight: 500;
+  line-height: 34px;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.segment input:checked + span {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.segment input:checked + span .segment-count {
+  color: rgb(255 255 255 / 0.7);
+}
+
+.segment input:focus-visible + span {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 260px;
+  height: 40px;
+  padding-inline: 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.search:focus-within {
+  border-color: var(--ink);
+}
+
+.search svg {
+  width: 18px;
+  height: 18px;
+  color: var(--ink-2);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font-size: var(--small);
+}
+
+.search input::placeholder {
+  color: var(--ink-3);
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-2);
+  font-size: var(--small);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px 0 12px;
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: var(--caption);
+  font-weight: 500;
+}
+
+.empty-actions .chip {
+  border-color: var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.toolbar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+}
+
+.result-count {
+  flex: none;
+  color: var(--ink-2);
+  font-size: var(--caption);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Price range: two native sliders on one track, ticks below. */
+
+.price-range {
+  display: grid;
+  gap: 14px;
+}
+
+.price-range-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.price-range-track {
+  position: relative;
+  height: 24px;
+}
+
+.price-range-track::before,
+.price-range-track::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.price-range-track::before {
+  inset-inline: 0;
+  background: var(--line);
+}
+
+.price-range-track::after {
+  left: var(--low);
+  right: calc(100% - var(--high));
+  background: var(--ink);
+}
+
+.price-range input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  background: none;
+  pointer-events: none;
+  appearance: none;
+}
+
+.price-range input::-webkit-slider-thumb {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  pointer-events: auto;
+  cursor: grab;
+  appearance: none;
+}
+
+.price-range input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.price-range input:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.price-range-ticks {
+  position: relative;
+  height: 16px;
+  margin-inline: 11px;
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.price-range-ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.price-range-ticks span:first-child {
+  transform: none;
+}
+
+.price-range-ticks span:last-child {
+  transform: translateX(-100%);
+}
+
+/* Grid */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 48px 20px;
+  margin: 0;
+  padding: 32px 0 0;
+  list-style: none;
+}
+
+.tile {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tile-link {
+  display: grid;
+  gap: 2px;
+  text-decoration: none;
+}
+
+.tile-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  margin-bottom: 12px;
+  overflow: hidden;
+  border-radius: var(--radius-small);
+  background: var(--media);
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--media);
+}
+
+.tile-media .product-image {
+  transition: opacity 0.35s var(--ease), transform 0.6s var(--ease);
+}
+
+.tile-alternate {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+@media (hover: hover) {
+  .tile-link:hover .has-alternate .tile-alternate {
+    opacity: 1;
+  }
+
+  .tile-link:hover .tile-media:not(.has-alternate) .product-image {
+    transform: scale(1.025);
+  }
+}
+
+.image-missing {
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  color: var(--ink-2);
+  font-size: var(--caption);
+  text-align: center;
+}
+
+.tile-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tile-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.tile-price {
+  font-size: 1rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tile-type {
+  font-size: var(--small);
+}
+
+.tile-material {
+  color: var(--ink-2);
+  font-size: var(--small);
+}
+
+.tile-link:hover .tile-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.tile-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.tile-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  /* Same height with or without the add button, so footers line up across a row. */
+  min-height: 36px;
+  margin-left: auto;
+}
+
+.compare-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--caption);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.compare-toggle.is-disabled {
+  color: var(--ink-3);
+  cursor: not-allowed;
+}
+
+.add-button {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--caption);
+  font-weight: 600;
+  transition: transform 0.15s var(--ease), background-color 0.15s var(--ease);
+}
+
+.add-button:hover:not(:disabled) {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.add-button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.add-button:disabled {
+  border-color: var(--line);
+  background: var(--panel);
+  color: var(--ink-3);
+}
+
+/* Material note: two tiles wide, as tall as a tile image, surface scan on the left. */
+
+.note-tile {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  aspect-ratio: 1.62;
+  overflow: hidden;
+  border-radius: var(--radius-small);
+  background: var(--panel);
+}
+
+.note-surface {
+  background-size: cover;
+  background-position: center;
+  image-rendering: auto;
+}
+
+.note-body {
+  display: grid;
+  align-content: end;
+  justify-items: start;
+  gap: 12px;
+  padding: clamp(20px, 2.4vw, 36px);
+}
+
+.note-body h3 {
+  font-size: clamp(1.375rem, 1rem + 1vw, 2rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.note-body p {
+  color: var(--ink-2);
+  font-size: var(--small);
+}
+
+@media (max-width: 1180px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .search {
+    width: 200px;
+  }
+
+  .note-tile {
+    grid-column: span 3;
+    aspect-ratio: 2.6;
+    grid-template-columns: 2fr 3fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .intro {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .toolbar-filters,
+  .toolbar-end .search {
+    display: none;
+  }
+
+  .sheet-trigger {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 12px;
+    padding-top: 20px;
+  }
+
+  .note-tile {
+    grid-column: span 2;
+    grid-template-columns: 1fr;
+    grid-template-rows: 120px auto;
+    aspect-ratio: auto;
+  }
+
+  .note-body {
+    padding: 20px;
+  }
+
+  .intro {
+    gap: 16px;
+    padding-block: 24px 16px;
+  }
+
+  .intro h1 {
+    font-size: clamp(2rem, 1rem + 4.4vw, 2.75rem);
+  }
+
+  .intro-aside {
+    gap: 16px;
+  }
+
+  .intro-aside > p {
+    font-size: var(--small);
+  }
+
+  /* One swipeable row of materials instead of three wrapped rows. */
+  .material-index {
+    flex-wrap: nowrap;
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .material-index button {
+    flex: none;
+  }
+
+  .result-count {
+    display: none;
+  }
+
+  .toolbar {
+    padding-block: 8px 10px;
+    gap: 8px;
+  }
+
+  .sort > span {
+    display: none;
+  }
+
+  .tile-name {
+    font-size: 1rem;
+  }
+
+  .tile-price {
+    font-size: 0.9375rem;
+  }
+
+  .tile-type,
+  .tile-material {
+    font-size: var(--caption);
+  }
+
+  .tile-material {
+    display: none;
+  }
+
+  .tile-footer {
+    gap: 8px;
+  }
+
+  /* Phone tiles: availability and compare share a row, the add action gets the full width. */
+  .tile-footer,
+  .tile-actions {
+    display: contents;
+  }
+
+  .tile {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0;
+  }
+
+  .tile-link {
+    grid-column: 1 / -1;
+  }
+
+  .tile .availability {
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+
+  .tile .compare-toggle {
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 0.75rem;
+  }
+
+
+  .tile .add-button,
+  .tile .stepper {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .tile .stepper {
+    grid-template-columns: 40px 1fr 40px;
+  }
+
+}
